@@ -33,10 +33,10 @@ class MenuItem extends React.Component {
   }
   submit = (menu_item) => {
     const { id } = this.props.match.params
-    const { editMenuItem } = this.state
+    const { editMenuItem } = !this.state
     let { menu_items } = this.state
     let newList=[]
-    if(!editMenuItem){
+    if(editMenuItem){
       axios.post(`/api/menus/${id}/menu_items`, { menu_item } )
       .then( res => this.setState({ menu_items: [{...res.data}, ...menu_items ], showForm: false }) )
 
@@ -53,6 +53,7 @@ class MenuItem extends React.Component {
           
         })
         this.setState({ menu_items: newList, editMenuItem: false }) })
+        window.location.reload()
     }
   }
 
@@ -65,7 +66,7 @@ class MenuItem extends React.Component {
   
   toggleEditDiv = (i) =>{
     
-    if(document.getElementsByClassName("editMenuItem")[i].style.display === "none")
+    if(this.state.editMenuItem)
          document.getElementsByClassName("editMenuItem")[i].style.display = "block"
     else
          document.getElementsByClassName("editMenuItem")[i].style.display = "none"

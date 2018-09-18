@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MenuForm from './MenuForm';
-const styles = {
-  display: 'none'
-}
+
 class Dashboard extends React.Component {
-  state = { menus: [], edit: true}
+  state = { menus: [], edit: false}
 
   componentDidMount() {
     axios.get('/api/menus')
@@ -15,9 +13,6 @@ class Dashboard extends React.Component {
       })
       
   }
-  
-  
-
  
   deleteMenu(menu){
     const { menus } = this.state
@@ -26,9 +21,6 @@ class Dashboard extends React.Component {
 
   }
 
-  
-
-  
     form() {
       return <MenuForm submit={this.submit}/>
     }
@@ -39,6 +31,7 @@ class Dashboard extends React.Component {
     let newList=[]
 
       if(edit){
+        debugger
         axios.put(`/api/menus/${menu.id}`, { menu } )
         .then( res => {
           const menu_res = res.data
@@ -50,7 +43,7 @@ class Dashboard extends React.Component {
             
           })
           this.setState({ menus: newList, edit: !this.state.edit }) })
-          window.location.reload()
+          // window.location.reload()
           
       }else{
         axios.post('/api/menus', { menu } )
@@ -71,8 +64,10 @@ class Dashboard extends React.Component {
     }
 
     editMenu(i) {
-      this.toggleEditDiv(i)
+      
       this.setState( { edit: !this.state.edit})
+      debugger
+      this.toggleEditDiv(i)
     }
           
     show() {
