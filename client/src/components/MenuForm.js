@@ -4,6 +4,11 @@ class MenuForm extends React.Component {
   defaultValues = { name: '', time: ''}
   state = {...this.defaultValues}
 
+  componentDidMount() {
+    if (this.props.id)
+      this.setState({...this.props})
+  }
+  
   handleSubmit = (e) => {
     e.preventDefault();
     const menu = { ...this.state }

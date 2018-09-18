@@ -1,7 +1,7 @@
 import React from 'react';
 
 class MenuItemForm extends React.Component {
-  defaultValues = { name: '', description: '', price: 0.00, spicy: ''}
+  defaultValues = { name: '', description: '', price: 0.00, spicy_level: ''}
   state = {...this.defaultValues}
   componentDidMount() {
     if (this.props.id)
@@ -20,7 +20,7 @@ class MenuItemForm extends React.Component {
   }
 
   render() {
-    const { name, description, price, spicy } = this.state;
+    const { name, description, price, spicy_level } = this.state;
     
     return (
       <form onSubmit={this.handleSubmit}>
@@ -46,9 +46,9 @@ class MenuItemForm extends React.Component {
           required
         />
         <input
-          name="spicy"
-          placeholder="Spicy"
-          value={spicy}
+          name="spicy_level"
+          placeholder="Spicy Level"
+          value={spicy_level || ''}
           onChange={this.handleChange}
           required
         />

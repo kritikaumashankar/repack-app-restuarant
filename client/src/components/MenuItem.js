@@ -41,6 +41,7 @@ class MenuItem extends React.Component {
       .then( res => this.setState({ menu_items: [{...res.data}, ...menu_items ], showForm: false }) )
 
     }else{
+      debugger
       axios.put(`/api/menus/${id}/menu_items/${menu_item.id}`, { menu_item } )
       .then( res => {
         const menu_item_res = res.data
@@ -63,7 +64,7 @@ class MenuItem extends React.Component {
   }
   
   toggleEditDiv = (i) =>{
-    debugger
+    
     if(document.getElementsByClassName("editMenuItem")[i].style.display === "none")
          document.getElementsByClassName("editMenuItem")[i].style.display = "block"
     else
@@ -89,11 +90,14 @@ class MenuItem extends React.Component {
                 <h4>{mi.description}</h4>
                 <h4>{mi.price}</h4>
                 <h4>{mi.spicy_level}</h4>
-                <button onClick={() =>{}}>Edit</button>
-                <div className='editMenuItem'>
+                <button onClick={() =>(this.deleteMenuItem(mi))}>Delete</button>
+                <button onClick={() =>{
+                    this.editMenuItem(i)
+                }}>Edit</button>
+                <div className="editMenuItem">
                   <MenuItemForm {...mi} submit={this.submit} />
                   </div>
-                <button onClick={() =>(this.deleteMenuItem(mi))}>Delete</button>
+                
               </li>
             )
             
@@ -102,13 +106,16 @@ class MenuItem extends React.Component {
       )
   }
 
-  
+  backToMenu(){
+    
+  }
 
   render() {
     const { name,showForm } = this.state;
     return (
       <div>
         <h1>{name}</h1>
+        <button>Back</button>
         <button onClick={this.toggleForm}>{ showForm ? 'Hide' : 'Show' } form</button>
         { showForm ? this.form() : this.showMenuItems() }     
       </div>
