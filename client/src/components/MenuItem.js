@@ -116,7 +116,7 @@ class MenuItem extends React.Component {
     return (
       <div>
         <h1>{name}</h1>
-        <button>Back</button>
+        <button onClick={this.props.history.goBack}>Back</button>
         <button onClick={this.toggleForm}>{ showForm ? 'Hide' : 'Show' } form</button>
         { showForm ? this.form() : this.showMenuItems() }     
       </div>

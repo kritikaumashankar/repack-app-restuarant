@@ -2,7 +2,7 @@ class Api::MenuItemsController < ApplicationController
   before_action :set_menu
   before_action :set_menu_items,only: [:update, :destroy]
   def index
-    render json: @menu.menu_items
+    render json: @menu.menu_items.order(created_at: :desc)
   end
 
   def create
